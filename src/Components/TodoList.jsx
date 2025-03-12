@@ -10,7 +10,8 @@ function TodoList() {
         setTask(e.target.value);
     }
 
-    const addTask = () => {
+    const addTask = (e) => {
+        e.preventDefault();
         if (task !== "") {
             setTaskList([...taskList, task]);
             setTask("");
@@ -25,13 +26,15 @@ function TodoList() {
   return (
     <div className="container">
         <h1>Todo List</h1>
-        <input type="text" value={task} onChange={handleChange} />
-        <button onClick={addTask} type="submit">Add Task</button>
+        <form onSubmit={addTask}>
+            <input type="text" value={task} onChange={handleChange} />
+            <button type="submit">Add Task</button>
+        </form>
         <ul className="todos-list">
             {taskList.map((task, index) => {
             return (
             <li key={index} className="todo">{task}
-            <button className="close" onClick={() => removeTask(index)}>Close</button>
+            <button className="close" onClick={() => removeTask(index)}>x</button>
             </li>
         )
             })}
